@@ -1,0 +1,14 @@
+.container {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--darker_text);
+}
+
+.logo {
+    font-weight: 700;
+}
+
+.text {
+    font-size: 12px;    
+}

@@ -1,6 +1,7 @@
 :root {
     --bg: #000000;
     --text: #D9C087;
+    --dark_text:  #7E704E;
 }
 
 * {
@@ -17,14 +18,15 @@ body {
 
 a {
     text-decoration: none;
-    color: inherit; 
+    color: inherit;
 }
 
 .container {
     max-width: 1140px;
-    margin: 0 auto;
-    padding: 0px 25px;
+    margin: 0px auto;
+    padding: 0px 20px;
     min-height: 100vh;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
 }

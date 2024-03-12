@@ -1,7 +1,7 @@
 import "./globals.css";
 import { inter } from "./font.js";
 import Navbar from "@/components/Navbar/Navbar.js";
-import Footer from "@/components/Footer.js";
+import Footer from "@/components/Footer/Footer.js";
 
 export const metadata = {
   title: "Next Blog",
@@ -13,7 +13,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.className} container`}>
         <Navbar />
-        {children} <Footer />
+        {children}
+        <Footer />
       </body>
     </html>
   );
