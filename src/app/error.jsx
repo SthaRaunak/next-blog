@@ -1,11 +1,5 @@
-"use client"
+"use client";
 
-export default function error({error}) {
-    console.log(error);
-    return (
-        <div>
-            Error
-        </div>
-    )
+export default function error({ error }) {
+  return <div>Error {error.message}</div>;
 }
-

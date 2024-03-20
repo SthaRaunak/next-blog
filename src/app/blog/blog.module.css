@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+} 
+
+.blogCard {
+    width: 32%;
+}
+
+@media (max-width: 1024px){
+    .blogCard{
+        width: 47%;
+    }
+}  
+
+
+@media (max-width: 768px){
+    .blogCard{
+        width: 100%;
+    }
+}  
