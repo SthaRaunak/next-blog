@@ -3,7 +3,7 @@ import styles from "./blogCard.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-function BlogCard({image,title,}) {
+function BlogCard({post}) {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -14,9 +14,9 @@ function BlogCard({image,title,}) {
       </div>
 
       <div className={styles.bottom}>
-            <h1 className={styles.title}>Title</h1>
-            <p className={styles.description}>Lorem ipsum doloasdasduo. Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-            <Link href="/" className={styles.link}>Read more</Link>
+            <h1 className={styles.title}>{post.title}</h1>
+            <p className={styles.description}>{post.body}</p>
+            <Link href={`/blog/${post.id}`} className={styles.link}>Read more</Link>
       </div>
     </div>
   );

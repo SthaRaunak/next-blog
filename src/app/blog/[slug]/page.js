@@ -1,7 +1,20 @@
 import Image from "next/image";
 import styles from "./blogPostPage.module.css";
+import PostUser from "@/components/postUser/postUser";
+import { Suspense } from "react";
 
-export default function BlogPostPage() {
+const getData = async (slug) => {
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${slug}`,
+    { next: { revalidate: 3600 } }
+  );
+  return await res.json();
+};
+
+export default async function BlogPostPage({ params }) {
+  const { slug } = params;
+  const post = await getData(slug);
+
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
@@ -13,7 +26,7 @@ export default function BlogPostPage() {
         />
       </div>
       <div className={styles.textContainer}>
-        <h1 className={styles.title}>Title</h1>
+        <h1 className={styles.title}>{post.title}</h1>
         <div className={styles.detail}>
           <Image
             src="https://images.pexels.com/photos/20522238/pexels-photo-20522238/free-photo-of-wax-candles-and-branches-with-blossoms-in-vase-on-table.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -22,54 +35,16 @@ export default function BlogPostPage() {
             width={50}
             height={50}
           />
-          <div className={styles.detailText}>
-            <span className={styles.detailTitle}>Author</span>
-            <span className={styles.detailValue}>Raunak Shrestha</span>
-          </div>
+          <Suspense fallback={<div>Loading</div>}>
+            <PostUser userId={post.userId} />
+          </Suspense>
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>Published</span>
             <span className={styles.detailValue}>01.01.2024</span>
           </div>
         </div>
 
-        <div className={styles.content}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          iusto repudiandae harum, itaque ducimus eaque praesentium quaerat iste
-          fugiat quia doloremque quas enim explicabo nulla? Provident laudantium
-          debitis, explicabo ea error doloremque. Amet rerum earum accusamus
-          molestiae quia dicta sit, illo, at totam, corporis aliquid dolores et
-          laudantium praesentium optio?        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          iusto repudiandae harum, itaque ducimus eaque praesentium quaerat iste
-          fugiat quia doloremque quas enim explicabo nulla? Provident laudantium
-          debitis, explicabo ea error doloremque. Amet rerum earum accusamus
-          molestiae quia dicta sit, illo, at totam, corporis aliquid dolores et
-          laudantium praesentium optio?  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          iusto repudiandae harum, itaque ducimus eaque praesentium quaerat iste
-          fugiat quia doloremque quas enim explicabo nulla? Provident laudantium
-          debitis, explicabo ea error doloremque. Amet rerum earum accusamus
-          molestiae quia dicta sit, illo, at totam, corporis aliquid dolores et
-          laudantium praesentium optio?  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          iusto repudiandae harum, itaque ducimus eaque praesentium quaerat iste
-          fugiat quia doloremque quas enim explicabo nulla? Provident laudantium
-          debitis, explicabo ea error doloremque. Amet rerum earum accusamus
-          molestiae quia dicta sit, illo, at totam, corporis aliquid dolores et
-          laudantium praesentium optio?  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          iusto repudiandae harum, itaque ducimus eaque praesentium quaerat iste
-          fugiat quia doloremque quas enim explicabo nulla? Provident laudantium
-          debitis, explicabo ea error doloremque. Amet rerum earum accusamus
-          molestiae quia dicta sit, illo, at totam, corporis aliquid dolores et
-          laudantium praesentium optio?  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          iusto repudiandae harum, itaque ducimus eaque praesentium quaerat iste
-          fugiat quia doloremque quas enim explicabo nulla? Provident laudantium
-          debitis, explicabo ea error doloremque. Amet rerum earum accusamus
-          molestiae quia dicta sit, illo, at totam, corporis aliquid dolores et
-          laudantium praesentium optio?  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          iusto repudiandae harum, itaque ducimus eaque praesentium quaerat iste
-          fugiat quia doloremque quas enim explicabo nulla? Provident laudantium
-          debitis, explicabo ea error doloremque. Amet rerum earum accusamus
-          molestiae quia dicta sit, illo, at totam, corporis aliquid dolores et
-          laudantium praesentium optio?
-        </div>
+        <div className={styles.content}>{post.body}</div>
       </div>
     </div>
   );
