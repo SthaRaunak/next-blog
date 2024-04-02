@@ -15,6 +15,10 @@ import { getPosts } from "@/lib/api";
 
 //   return await res.json();
 // };
+export const metadata = {
+  title: "Blog Listing Page",
+  description: "Blog listings for raunak shrestha"
+}
 
 export default async function BlogPage() {
   // const a = Math.random();

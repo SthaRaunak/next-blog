@@ -13,6 +13,15 @@ import { formatDate } from "../../../../util/formatDate";
 //   );
 //   return await res.json();
 // };
+export const generateMetadata = async ({ params }) => {
+  const { slug } = params;
+  const post = await getPost(slug); // nextjs is smart enough to not fetch the same data twice if its already fetched
+
+  return {
+    title: post.title,
+    description: post.desc,
+  };
+};
 
 export default async function BlogPostPage({ params }) {
   const { slug } = params;
@@ -32,13 +41,14 @@ export default async function BlogPostPage({ params }) {
       <div className={styles.textContainer}>
         <h1 className={styles.title}>{post.title}</h1>
         <div className={styles.detail}>
-       
           <Suspense fallback={<div>Loading</div>}>
             <PostUser userId={post.userId} />
           </Suspense>
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>Published</span>
-            <span className={styles.detailValue}>{formatDate(post.createdAt)}</span>
+            <span className={styles.detailValue}>
+              {formatDate(post.createdAt)}
+            </span>
           </div>
         </div>
 
