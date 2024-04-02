@@ -1,8 +1,15 @@
-.container {
+.container{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.textContainer {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
+
 
 .title {
     color: gray;
@@ -11,4 +18,9 @@
 
 .username {
     font-weight: 500;
+}
+
+.avatar{
+    object-fit: cover;
+    border-radius: 50%;
 }

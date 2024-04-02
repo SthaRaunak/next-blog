@@ -1,8 +1,9 @@
 import { Post } from "@/model/post.model";
 import { connectDB } from "./connectionDB";
 import { User } from "@/model/user.model";
+import { unstable_noStore as noStore } from "next/cache";
 
-const getAllPost = async () => {
+const getPosts = async () => {
   try {
     connectDB();
     const posts = Post.find();
@@ -16,7 +17,7 @@ const getAllPost = async () => {
 const getPost = async (slug) => {
   try {
     connectDB();
-    const post = await Post.find({ slug: slug });
+    const post = await Post.findOne({ slug: slug });
     if (!post) {
       throw new Error("400 Post not found");
     }
@@ -29,6 +30,7 @@ const getPost = async (slug) => {
 };
 
 const getUser = async (id) => {
+  noStore(); //stop nextjs from caching (currently this feature is unstable)
   try {
     connectDB();
     const user = await User.findById(id).select("-password");
@@ -50,4 +52,4 @@ const getUsers = async () => {
   }
 };
 
-export { getPost, getAllPost, getUser, getUsers };
+export { getPost, getPosts, getUser, getUsers };
